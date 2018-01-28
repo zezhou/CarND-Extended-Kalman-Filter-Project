@@ -1,7 +1,8 @@
 #ifndef KALMAN_FILTER_H_
 #define KALMAN_FILTER_H_
 #include "Eigen/Dense"
-
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
 class KalmanFilter {
 public:
 
@@ -63,7 +64,10 @@ public:
    * @param z The measurement at k+1
    */
   void UpdateEKF(const Eigen::VectorXd &z);
-
+  MatrixXd CalJacobian(const VectorXd& x_state) ;
+  float Normalize(const float& angle, const float& base_angle) ;
+  void MeasurementUpdate(const VectorXd &y, const MatrixXd &H, const MatrixXd &R);
+  VectorXd Convert(const VectorXd& cartesian, const VectorXd& polar_base);
 };
 
 #endif /* KALMAN_FILTER_H_ */
